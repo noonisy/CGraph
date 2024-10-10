@@ -44,7 +44,7 @@ foreach ($array as $i) {
     // $item = json_encode(CGraph_Plugin::getGraphData());
     echo "<script>
     $(document).on('pjax:popstate', function (event) {
-        // 自定义 tag.html
+        // 如果使用了 pjax 才使用，tag.html 自定义
         if (event.currentTarget.URL.endsWith('/tag.html')) {
             event.preventDefault();
             $.pjax.defaults.maxCacheLength = 0;
