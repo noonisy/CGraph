@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/e4e189e1-d060-433d-bbd0-673f2654f6bb
 
 展示代码如下：
 ```
-<?php if ($this->user->hasLogin() && isset($plugins['activated']['CGraph']) ){ ?>
+<?php isset($plugins['activated']['CGraph']) ){ ?>
 <div class="mdui-card-primary-title">贡献图</div>
 <?php $item = json_encode(CGraph_Plugin::getGraphData()); $ContributeTotal=0;
 // 将JSON字符串解析为PHP数组
