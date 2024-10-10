@@ -7,6 +7,10 @@ A Typecho plugin for generating a heatmap of article modifications over the past
 1. Download the plugin from the [releases](https://github.com/noonisy/CGraph/releases) page.
 2. Extract the downloaded file and upload the `CGraph` folder to the `usr/plugins/` directory of your Typecho installation.
 
+## Display Effect
+
+https://github.com/user-attachments/assets/e4e189e1-d060-433d-bbd0-673f2654f6bb
+
 ## Usage
 
 1. Activate the plugin from the Typecho plugin management page.
