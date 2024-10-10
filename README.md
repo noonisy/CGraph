@@ -4,7 +4,7 @@ A Typecho plugin for generating a heatmap of article modifications over the past
  
 ## Installation
 
-1. Download the plugin from the [releases](https://github.com/noonisy/CGraph/releases) page.
+1. Download the plugin.
 2. Extract the downloaded file and upload the `CGraph` folder to the `usr/plugins/` directory of your Typecho installation.
 
 ## Display Effect
@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/e4e189e1-d060-433d-bbd0-673f2654f6bb
 
 展示代码如下：
 ```
-<?php isset($plugins['activated']['CGraph']) ){ ?>
+<?php if (isset($plugins['activated']['CGraph']) ){ ?>
 <div class="mdui-card-primary-title">贡献图</div>
 <?php $item = json_encode(CGraph_Plugin::getGraphData()); $ContributeTotal=0;
 // 将JSON字符串解析为PHP数组

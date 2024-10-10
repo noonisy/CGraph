@@ -10,7 +10,6 @@
 class CGraph_Plugin implements Typecho_Plugin_Interface
 {
     public static $graphStatData;
-    public static $calendarData;
 
     /**
      * 激活插件方法,如果激活失败,直接抛出异常
