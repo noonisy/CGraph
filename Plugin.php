@@ -38,7 +38,7 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
      */
     public static function deactivate()
     {
-        return '词云生成器插件已禁用';
+        return '插件已禁用';
     }
 
     /**
