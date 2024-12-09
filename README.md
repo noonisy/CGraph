@@ -56,7 +56,7 @@ foreach ($array as $i) {
             graphOption = {
                 tooptipId: '#tooltip',
                 graphId: '#svg',
-                tooltipFormat: '{1}篇内容于{0}修改',
+                tooltipFormat: '{0}修改{1}次内容',
                 graphData: {$item},
                 option: {}
             };
