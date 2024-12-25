@@ -20,8 +20,17 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
      */
     public static function activate()
     {
-        // 激活插件时创建数据表
-        self::createTable();
+        // 检查表是否已存在
+        $db = Typecho_Db::get();
+        $prefix = $db->getPrefix();
+        
+        // 先尝试查询表是否存在
+        try {
+            $db->query("SHOW TABLES LIKE '{$prefix}edit_times'");
+        } catch (Exception $e) {
+            // 表不存在时创建
+            self::createTable();
+        }
         // 注册插件钩子
         Typecho_Plugin::factory('Widget_Contents_Post_Edit')->finishPublish = array('CGraph_Plugin', 'recordEditTime');
 
@@ -117,13 +126,16 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
     public static function recordEditTime($contents, $edit)
     {
         // 在保存文章时记录修改时间
+        if (empty($edit->cid)) {
+            return;
+        }
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         $edit_time = time();
         $cid = $edit->cid;
         // 插入新记录到 edit_history 表
         $db->query($db->insert($prefix . 'edit_times')
-            ->rows(array('cid' => $cid, 'edit_time' => $edit_time)));
+            ->rows(array('cid' => (int)$cid, 'edit_time' => $edit_time)));
         // 返回原始内容
         // return $content;
     }
