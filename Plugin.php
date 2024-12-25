@@ -85,7 +85,7 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
     {
         if (!self::$graphStatData) {
             $db = Typecho_Db::get();
-            $options = Helper::options()->plugin('CGraph');
+            $options = Helper::options();
             $resource = $db->query($db->select('edit_time')->from('table.edit_times')
                                     //   ->where('type = ?', 'post')
                                     //   ->where('table.contents.status = ?', 'publish')
