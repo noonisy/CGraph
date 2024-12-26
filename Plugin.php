@@ -1,10 +1,10 @@
 <?php
 
 /**
- * 生成过去一年修改的热图
+ * 生成过去一年文章修改的热图
  * @package CGraph
  * @author Noonisy
- * @version 0.0.2
+ * @version 0.0.3
  * @link https://www.noonisy.com
  */
 class CGraph_Plugin implements Typecho_Plugin_Interface
@@ -47,7 +47,7 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
      */
     public static function deactivate()
     {
-        return '插件已禁用';
+        return _t('插件已禁用');
     }
 
     /**
@@ -59,9 +59,17 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
      */
     public static function config(Typecho_Widget_Helper_Form $form)
     {
-        /** 名称 */
-        // $name = new Typecho_Widget_Helper_Form_Element_Text('word', null, 'Hello World', _t('说点什么'));
-        // $form->addInput($name);
+        $enable_record = new Typecho_Widget_Helper_Form_Element_Radio(
+            'enable_record',
+            array(
+                '1' => _t('开启'),
+                '0' => _t('关闭')
+            ),
+            '1',
+            _t('是否记录文章修改时间'),
+            _t('开启后将记录文章的修改时间')
+        );
+        $form->addInput($enable_record);
     }
 
     /**
@@ -125,6 +133,14 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
 
     public static function recordEditTime($contents, $edit)
     {
+        // 获取插件配置
+        $options = Helper::options();
+        
+        // 检查是否启用记录
+        if (empty($options->enable_record) || $options->enable_record != '1') {
+            return;
+        }
+
         // 在保存文章时记录修改时间
         if (empty($edit->cid)) {
             return;
@@ -133,10 +149,9 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
         $prefix = $db->getPrefix();
         $edit_time = time();
         $cid = $edit->cid;
+        
         // 插入新记录到 edit_history 表
         $db->query($db->insert($prefix . 'edit_times')
             ->rows(array('cid' => (int)$cid, 'edit_time' => $edit_time)));
-        // 返回原始内容
-        // return $content;
     }
 }
