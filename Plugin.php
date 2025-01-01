@@ -93,7 +93,7 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
     {
         if (!self::$graphStatData) {
             $db = Typecho_Db::get();
-            $options = Helper::options();
+            $options = Helper::options()->plugin('CGraph');
             $resource = $db->query($db->select('edit_time')->from('table.edit_times')
                                     //   ->where('type = ?', 'post')
                                     //   ->where('table.contents.status = ?', 'publish')
@@ -134,7 +134,7 @@ class CGraph_Plugin implements Typecho_Plugin_Interface
     public static function recordEditTime($contents, $edit)
     {
         // 获取插件配置
-        $options = Helper::options();
+        $options = Helper::options()->plugin('CGraph');
         
         // 检查是否启用记录
         if (empty($options->enable_record) || $options->enable_record != '1') {
